@@ -1,6 +1,9 @@
 package com.cos.photogramstart.web;
 
+import com.cos.photogramstart.config.auth.PrincipalDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -14,7 +17,11 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}/update")
-    public String update(@PathVariable int id) {
+    public String update(@PathVariable int id, Model model
+            , @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        principalDetails.getUser();
+
+        model.addAttribute("principal",principalDetails.getUser());
 
         return "user/update";
     }

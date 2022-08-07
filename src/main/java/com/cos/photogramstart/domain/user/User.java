@@ -32,6 +32,7 @@ public class User {
     @Column(nullable = false)
     private String email;
     private String gender;
+    private String phone;
 
     private String profileImageUrl; // 사진
     private String role; // 권한

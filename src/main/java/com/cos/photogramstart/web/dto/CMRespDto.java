@@ -13,6 +13,6 @@ public class CMRespDto<T> {
 
     private int code;
     private String message;
-    private Map<String,String> errorMap;
+    private T data;
 
 }
