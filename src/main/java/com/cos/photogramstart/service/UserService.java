@@ -2,11 +2,13 @@ package com.cos.photogramstart.service;
 
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
-import com.cos.photogramstart.web.dto.user.UserUpdateDto;
+import com.cos.photogramstart.hanlder.ex.CustomValidationApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 @Service
@@ -18,8 +20,14 @@ public class UserService {
     @Transactional
     public User update(int id, User user) {
         // 1. 영속화
-        User userEntity = userRepository.findById(id).get();
         // 1-1 1. 무조건 찾았다 2. 못찾아서 익센션 발동 시킴 orElseThrow()
+
+        //User userEntity = userRepository.findById(id).get();
+
+        User userEntity = userRepository.findById(id).orElseThrow(() -> {
+            return new CustomValidationApiException("찾을수 없는 id입니다.");
+        });
+
         userEntity.setName(user.getName());
         //String bCryptPasswordEncoder.encode(user.getPassword());
 
