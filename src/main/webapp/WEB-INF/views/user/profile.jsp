@@ -21,7 +21,7 @@
 					onerror="this.src='/images/person.jpeg'" id="userProfileImage" />
 			</div>
 		</div>
-		<!--유저이미지end-->
+		<!--유저이미지end2-->
 
 		<!--유저정보 및 사진등록 구독하기!-->
 		<div class="profile-right">
