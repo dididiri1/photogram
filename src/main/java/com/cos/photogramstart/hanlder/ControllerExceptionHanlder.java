@@ -1,6 +1,7 @@
 package com.cos.photogramstart.hanlder;
 
 import com.cos.photogramstart.hanlder.ex.CustomApiException;
+import com.cos.photogramstart.hanlder.ex.CustomException;
 import com.cos.photogramstart.hanlder.ex.CustomValidationApiException;
 import com.cos.photogramstart.hanlder.ex.CustomValidationException;
 import com.cos.photogramstart.util.Script;
@@ -27,7 +28,16 @@ public class ControllerExceptionHanlder {
         // 2. Ajax 통신 - CMRespDto
         // 3. Android 통신 - CMRespDto
 
-        return Script.back(e.getErrorMap().toString());
+        if(e.getErrorMap() == null){
+            return Script.back(e.getMessage());
+        } else{
+            return Script.back(e.getErrorMap().toString());
+        }
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public String CustomException(CustomException e) {
+        return Script.back(e.getMessage());
     }
 
     @ExceptionHandler(CustomValidationApiException.class)
