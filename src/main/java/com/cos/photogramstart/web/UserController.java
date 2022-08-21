@@ -28,7 +28,6 @@ public class UserController {
     public String update(@PathVariable int id, Model model
             , @AuthenticationPrincipal PrincipalDetails principalDetails) {
         principalDetails.getUser();
-
         model.addAttribute("principal", principalDetails.getUser());
 
         return "user/update";

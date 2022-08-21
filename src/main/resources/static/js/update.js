@@ -10,9 +10,10 @@ function update(userId) {
         dataType: "json"
     }).done(res => {
         console.log("성공",res);
-        //location.href = "/user/"+userId
+        location.href = "/user/"+userId
     }).fail(error => {
-        if(error.data == null){
+        console.log(error.responseJSON);
+        if(error.responseJSON.data == null){
             alert(error.responseJSON.message);
         }else{
             alert(JSON.stringify(error.responseJSON.data));
