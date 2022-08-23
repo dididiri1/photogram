@@ -2,7 +2,7 @@ package com.cos.photogramstart.hanlder.ex;
 
 import java.util.Map;
 
-public class CustomApiException extends  RuntimeException{
+public class CustomApiException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,7 @@
 package com.cos.photogramstart.web;
 
 import com.cos.photogramstart.domain.user.User;
+import com.cos.photogramstart.hanlder.ex.CustomValidationApiException;
 import com.cos.photogramstart.hanlder.ex.CustomValidationException;
 import com.cos.photogramstart.service.AuthService;
 import com.cos.photogramstart.web.dto.auth.SignupDto;
@@ -44,7 +45,7 @@ public class AuthController {
             for (FieldError error: bindingResult.getFieldErrors()) {
                 errorMap.put(error.getField(),error.getDefaultMessage());
             }
-            throw new CustomValidationException("유효성 검사 실패함",errorMap);
+            throw new CustomValidationApiException("유효성 검사 실패함",errorMap);
         } else {
             User user = signupDto.toEntity();
             User userEntity = authService.save(user);
