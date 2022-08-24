@@ -1,8 +1,6 @@
 package com.cos.photogramstart.web.api;
 
 import com.cos.photogramstart.config.auth.PrincipalDetails;
-import com.cos.photogramstart.domain.subscribe.Subscribe;
-import com.cos.photogramstart.domain.subscribe.SubscribeRepository;
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.hanlder.ex.CustomValidationApiException;
 import com.cos.photogramstart.service.SubscribeService;
@@ -31,11 +29,11 @@ public class UserApiController {
     private final SubscribeService subscribeService;
 
     @GetMapping("/api/user/{pageUserId}/subscribe")
-    public ResponseEntity<?> subscribeList(@PathVariable int pageUsrId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<?> subscribeList(@PathVariable int pageUserId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        List<SubscribeDto> subscribeDto = subscribeService.구독리스트(principalDetails.getUser().getId(),pageUsrId);
+        List<SubscribeDto> subscribeDto = subscribeService.구독리스트(principalDetails.getUser().getId(), pageUserId);
 
-        return new ResponseEntity<>(new CMRespDto<>(1,"구독자 정보 리스트 가져오기 성공",subscribeDto), HttpStatus.OK);
+        return new ResponseEntity<>(new CMRespDto<>(1, "구독자 정보 리스트 가져오기 성공", subscribeDto), HttpStatus.OK);
     }
 
 

@@ -1,20 +1,21 @@
 package com.cos.photogramstart.web.dto.subscribe;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
+import java.math.BigInteger;
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class SubscribeDto {
 
-    private int userId;
+    private Integer id;
     private String userid;
     private String profileImageUrl;
-    private Integer subscribeState;
-    private Integer equalUserState;
+    private BigInteger subscribeState;
+    private BigInteger equalUserState;
 
 }

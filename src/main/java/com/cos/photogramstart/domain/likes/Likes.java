@@ -1,5 +1,6 @@
-package com.cos.photogramstart.domain.subscribe;
+package com.cos.photogramstart.domain.likes;
 
+import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,26 +18,26 @@ import java.time.LocalDateTime;
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "subscribe_uk",
-                        columnNames = {"fromUserId", "toUserId"
-
-                        }
+                        name = "likes_uk",
+                        columnNames = {"imageId", "userId"}
                 )
         }
 )
-public class Subscribe {
+public class Likes { // N, N
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name = "fromUserId")
+    // 무한참조됨.
+    @JoinColumn(name = "imageId")
     @ManyToOne
-    private User fromUserId;
+    private Image image; // 1
 
-    @JoinColumn(name = "toUserId")
+    // 오류가 터지고 나서 잡아봅시다.
+    @JoinColumn(name = "userId")
     @ManyToOne
-    private User toUserId;
+    private User user; // 1
 
     private LocalDateTime createDate;
 

@@ -27,23 +27,64 @@ function toggleSubscribe(toUserId, obj) {
 		$.ajax({
 			type:"post",
 			url:"/api/subscribe/"+toUserId,
-			dataType:"json"
-		}).done(res => {
+			dataType:"json",
+		}).done(res=>{
 			$(obj).text("구독취소");
 			$(obj).toggleClass("blue");
-		}).fail(error => {
+		}).fail(error=>{
 			console.log("구독하기실패",error);
 		});
 	}
 }
 
 // (2) 구독자 정보  모달 보기
-function subscribeInfoModalOpen() {
+function subscribeInfoModalOpen(pageUserId) {
 	$(".modal-subscribe").css("display", "flex");
+
+	$.ajax({
+		type:"get",
+		url:"/api/user/"+pageUserId+"/subscribe",
+		dataType:"json",
+	}).done(res=>{
+		console.log(res);
+
+		res.data.forEach((u)=>{
+			console.log(u.userid)
+			let item = getSubscribeModalItem(u);
+			$(".subscribe-list").append(item);
+		});
+	}).fail(error=>{
+		console.log("구독불러오기실패",error);
+	});
 }
 
-function getSubscribeModalItem() {
+/**
+ * @param u.id
+ * @param u.userid
+ * @param u.profileImageUrl
+ * @param u.subscribeState
+ * @param u.equalUserState
+ */
+function getSubscribeModalItem(u) {
+	let item = '<div class="subscribe__item" id="subscribeModalItem-'+u.id+'">' +
+					'<div class="subscribe__img">' +
+					  '<img src="/upload/'+u.profileImageUrl+'" onerror="this.src=\'/images/person.jpeg\'"/>' +
+					'</div>' +
+					'<div class="subscribe__text">' +
+					  '<h2>'+u.userid+'</h2>' +
+					'</div>' +
+					'<div class="subscribe__btn">';
+					if(!u.equalUserState) { // 동일 유저가 아닐 떄 버튼이 만들어져야함.
+					  if(u.subscribeState) { // 구독한 상태
+						  item += '<button class="cta blue" onclick="toggleSubscribe(\''+u.id+'\', this)">구독취소</button>';
+					  }	else{ // 구동안한 상태
+						  item += '<button class="cta" onclick="toggleSubscribe(\''+u.id+'\', this)">구독하기</button>';
+					  }
+					}
+					item += '</div>' +
+				'</div>';
 
+	return item;
 }
 
 
