@@ -72,7 +72,7 @@ function getStoryItem(image) {
 							'</div>' +
 						'</div>' +
 						'<div class="sl__item__input">' +
-							'<input type="text" placeholder="댓글 달기..." id="storyCommentInput-1" />' +
+							'<input type="text" placeholder="댓글 달기..." id="storyCommentInput-'+image.id+'" />' +
 							'<button type="button" onClick="addComment()">게시</button>' +
 						'</div>' +
 					'</div>' +
